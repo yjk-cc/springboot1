@@ -2,7 +2,7 @@ package com.entity.model;
 
 import com.entity.ShuchengtushuEntity;
 
-import com.baomidou.mybatisplus.annotations.TableName;
+//import com.baomidou.mybatisplus.annotations.TableName;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 

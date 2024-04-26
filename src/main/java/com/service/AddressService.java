@@ -1,7 +1,8 @@
 package com.service;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.service.IService;
+//import com.baomidou.mybatisplus.mapper.Wrapper;
+//import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.utils.PageUtils;
 import com.entity.AddressEntity;
 import java.util.List;
@@ -23,15 +24,15 @@ public interface AddressService extends IService<AddressEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
     
-   	List<AddressVO> selectListVO(Wrapper<AddressEntity> wrapper);
+   	List<AddressVO> selectListVO(QueryWrapper<AddressEntity> wrapper);
    	
-   	AddressVO selectVO(@Param("ew") Wrapper<AddressEntity> wrapper);
+   	AddressVO selectVO(@Param("ew") QueryWrapper<AddressEntity> wrapper);
    	
-   	List<AddressView> selectListView(Wrapper<AddressEntity> wrapper);
+   	List<AddressView> selectListView(QueryWrapper<AddressEntity> wrapper);
    	
-   	AddressView selectView(@Param("ew") Wrapper<AddressEntity> wrapper);
+   	AddressView selectView(@Param("ew") QueryWrapper<AddressEntity> wrapper);
    	
-   	PageUtils queryPage(Map<String, Object> params, Wrapper<AddressEntity> wrapper);
+   	PageUtils queryPage(Map<String, Object> params, QueryWrapper<AddressEntity> wrapper);
    	
 
 }

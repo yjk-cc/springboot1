@@ -8,6 +8,10 @@ import com.alibaba.fastjson.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
+//import com.controller.IgnoreAuth;
+import com.controller.IgnoreAuth;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +20,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.http.HttpStatus;
 
-import com.annotation.IgnoreAuth;
+//import com.annotation.IgnoreAuth;
 import com.entity.EIException;
 import com.entity.TokenEntity;
 import com.service.TokenService;

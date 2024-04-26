@@ -12,7 +12,10 @@ import java.util.Map;
 
 
 
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+//import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 
 import org.apache.ibatis.annotations.Param;
 import com.entity.vo.AddressVO;
@@ -34,8 +37,8 @@ public interface AddressDao extends BaseMapper<AddressEntity> {
 	
 	List<AddressView> selectListView(@Param("ew") QueryWrapper<AddressEntity> wrapper);
 
-	List<AddressView> selectListView(Pagination page, @Param("ew") QueryWrapper<AddressEntity> wrapper);
-	
+	//List<AddressView> selectListView(Pagination page, @Param("ew") QueryWrapper<AddressEntity> wrapper);
+	List<AddressView> selectListView(Page<AddressEntity> page, @Param("ew") QueryWrapper<AddressEntity> wrapper);
 	AddressView selectView(@Param("ew") QueryWrapper<AddressEntity> wrapper);
 	
 

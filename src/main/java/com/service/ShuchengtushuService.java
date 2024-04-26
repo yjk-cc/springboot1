@@ -1,7 +1,7 @@
 package com.service;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.service.IService;
+//import com.baomidou.mybatisplus.mapper.Wrapper;
+//import com.baomidou.mybatisplus.service.IService;
 import com.utils.PageUtils;
 import com.entity.ShuchengtushuEntity;
 import java.util.List;
@@ -12,6 +12,9 @@ import com.entity.view.ShuchengtushuView;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
+
+
 /**
  * 书城图书
  *
@@ -22,17 +25,17 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface ShuchengtushuService extends IService<ShuchengtushuEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-    
-   	List<ShuchengtushuVO> selectListVO(Wrapper<ShuchengtushuEntity> wrapper);
-   	
-   	ShuchengtushuVO selectVO(@Param("ew") Wrapper<ShuchengtushuEntity> wrapper);
-   	
-   	List<ShuchengtushuView> selectListView(Wrapper<ShuchengtushuEntity> wrapper);
-   	
-   	ShuchengtushuView selectView(@Param("ew") Wrapper<ShuchengtushuEntity> wrapper);
-   	
-   	PageUtils queryPage(Map<String, Object> params, Wrapper<ShuchengtushuEntity> wrapper);
-   	
+
+   	List<ShuchengtushuVO> selectListVO(QueryWrapper<ShuchengtushuEntity> wrapper);
+
+   	ShuchengtushuVO selectVO(@Param("ew") QueryWrapper<ShuchengtushuEntity> wrapper);
+
+   	List<ShuchengtushuView> selectListView(QueryWrapper<ShuchengtushuEntity> wrapper);
+
+   	ShuchengtushuView selectView(@Param("ew") QueryWrapper<ShuchengtushuEntity> wrapper);
+
+   	PageUtils queryPage(Map<String, Object> params, QueryWrapper<ShuchengtushuEntity> wrapper);
+
 
 }
 

@@ -120,7 +120,7 @@ public class UserController{
 	@RequestMapping("/session")
 	public R getCurrUser(HttpServletRequest request){
 		Long id = (Long)request.getSession().getAttribute("userId");
-		UserEntity user = userService.selectById(id);
+		UserEntity user = userService.selectById(String.valueOf(id));
 		return R.ok().put("data", user);
 	}
 

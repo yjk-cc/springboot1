@@ -1,8 +1,9 @@
 package com.entity.view;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.entity.AddressEntity;
 
-import com.baomidou.mybatisplus.annotations.TableName;
+//import com.baomidou.mybatisplus.annotations.TableName;
 import org.apache.commons.beanutils.BeanUtils;
 import java.lang.reflect.InvocationTargetException;
 

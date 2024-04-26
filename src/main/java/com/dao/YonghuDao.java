@@ -5,7 +5,10 @@ import com.entity.YonghuEntity;
 import java.util.List;
 import java.util.Map;
 //import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+//import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 
 import org.apache.ibatis.annotations.Param;
 import com.entity.vo.YonghuVO;
@@ -28,7 +31,7 @@ public interface YonghuDao extends BaseMapper<YonghuEntity> {
 	
 	List<YonghuView> selectListView(@Param("ew") QueryWrapper<YonghuEntity> wrapper);
 
-	List<YonghuView> selectListView(Pagination page, @Param("ew") QueryWrapper<YonghuEntity> wrapper);
+	List<YonghuView> selectListView(Page<YonghuEntity> page, @Param("ew") QueryWrapper<YonghuEntity> wrapper);
 	
 	YonghuView selectView(@Param("ew") QueryWrapper<YonghuEntity> wrapper);
 	

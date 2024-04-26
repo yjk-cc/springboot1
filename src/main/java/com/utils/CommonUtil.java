@@ -1,11 +1,17 @@
 package com.utils;
 
 import java.util.Random;
+
+import org.apache.poi.ss.usermodel.CellType;
 import org.springframework.stereotype.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import java.text.DecimalFormat;
 import java.util.Objects;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+
 
 @Component
 public class CommonUtil {
@@ -51,14 +57,14 @@ public class CommonUtil {
         }
 
         // 拿到单元格类型
-        int cellType = cell.getCellType();
+        CellType cellType = cell.getCellType();
         switch (cellType) {
             // 字符串类型
-            case Cell.CELL_TYPE_STRING:
+            case CellType.STRING:
                 resultValue = StringUtils.isEmpty(cell.getStringCellValue()) ? "" : cell.getStringCellValue().trim();
                 break;
             // 布尔类型
-            case Cell.CELL_TYPE_BOOLEAN:
+            case CellType.BOOLEAN:
                 resultValue = String.valueOf(cell.getBooleanCellValue());
                 break;
             // 数值类型
