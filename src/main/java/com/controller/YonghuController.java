@@ -289,18 +289,22 @@ public class YonghuController {
 				map.put("remindend", sdf.format(remindEndDate));
 			}
 		}
-		
-		Wrapper<YonghuEntity> wrapper = new QueryWrapper<YonghuEntity>();
-		if(map.get("remindstart")!=null) {
-			wrapper.ge(columnName, map.get("remindstart"));
+
+		QueryWrapper<YonghuEntity> wrapper = new QueryWrapper<>();
+		if (map.get("remindstart") != null) {
+			wrapper.ge("column_name", map.get("remindstart"));
 		}
+
+
 		if(map.get("remindend")!=null) {
 			wrapper.le(columnName, map.get("remindend"));
 		}
 
 
-		int count = yonghuService.selectCount(wrapper);
-		return R.ok().put("count", count);
+		long count = yonghuService.count(wrapper);
+		int countInt = Math.toIntExact(count);
+
+		return R.ok().put("count", countInt);
 	}
 	
 

@@ -1,13 +1,14 @@
 package com.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.List;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+//import com.baomidou.mybatisplus.mapper.Wrapper;
+//import com.baomidou.mybatisplus.mapper.EntityWrapper;
+//import com.baomidou.mybatisplus.plugins.Page;
+//import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.utils.PageUtils;
 import com.utils.Query;
 
@@ -17,6 +18,10 @@ import com.entity.NewsEntity;
 import com.service.NewsService;
 import com.entity.vo.NewsVO;
 import com.entity.view.NewsView;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 
 @Service("newsService")
 public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements NewsService {
@@ -32,7 +37,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements
     }
     
     @Override
-	public PageUtils queryPage(Map<String, Object> params, Wrapper<NewsEntity> wrapper) {
+	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<NewsEntity> wrapper) {
 		  Page<NewsView> page =new Query<NewsView>(params).getPage();
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
@@ -40,22 +45,22 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements
  	}
     
     @Override
-	public List<NewsVO> selectListVO(Wrapper<NewsEntity> wrapper) {
+	public List<NewsVO> selectListVO(QueryWrapper<NewsEntity> wrapper) {
  		return baseMapper.selectListVO(wrapper);
 	}
 	
 	@Override
-	public NewsVO selectVO(Wrapper<NewsEntity> wrapper) {
+	public NewsVO selectVO(QueryWrapper<NewsEntity> wrapper) {
  		return baseMapper.selectVO(wrapper);
 	}
 	
 	@Override
-	public List<NewsView> selectListView(Wrapper<NewsEntity> wrapper) {
+	public List<NewsView> selectListView(QueryWrapper<NewsEntity> wrapper) {
 		return baseMapper.selectListView(wrapper);
 	}
 
 	@Override
-	public NewsView selectView(Wrapper<NewsEntity> wrapper) {
+	public NewsView selectView(QueryWrapper<NewsEntity> wrapper) {
 		return baseMapper.selectView(wrapper);
 	}
 

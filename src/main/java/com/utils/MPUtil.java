@@ -12,6 +12,9 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 //import com.baomidou.mybatisplus.mapper.Wrapper;
 
+import javax.persistence.Entity;
+
+
 /**
  * Mybatis-Plus工具类
  */
@@ -42,63 +45,84 @@ public class MPUtil {
 			  Map result = BeanUtil.beanToMap(bean, true, true);			 
 			return genLike(wrapper,result);
 		}
-	
-	
-		public static QueryWrapper genLike( QueryWrapper wrapper,Map param) {
-			Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
-			int i=0;
-			while (it.hasNext()) {
-				if(i>0) wrapper.and();
 
-				Map.Entry<String, Object> entry = it.next();
-				String key = entry.getKey();
-				String value = (String) entry.getValue();
+
+	public static QueryWrapper<Entity> genLike(QueryWrapper<Entity> wrapper, Map<String, String> param) {
+		Iterator<Map.Entry<String, String>> it = param.entrySet().iterator();
+		int i = 0;
+		while (it.hasNext()) {
+			Map.Entry<String, String> entry = it.next();
+			String key = entry.getKey();
+			String value = entry.getValue();
+
+			if (value != null) {
+				// 构建 like 查询条件
 				wrapper.like(key, value);
-				i++;
 			}
-			return wrapper;
+
+			if (i > 0) {
+				// 在第二次迭代之后调用 or() 方法进行逻辑连接
+				wrapper.or();
+			}
+
+			i++;
 		}
+		return wrapper;
+	}
+
 		
 		public static QueryWrapper likeOrEq(QueryWrapper wrapper,Object bean) {
 			  Map result = BeanUtil.beanToMap(bean, true, true);
 			return genLikeOrEq(wrapper,result);
 		}
-		
-		public static QueryWrapper genLikeOrEq( QueryWrapper wrapper,Map param) {
-			Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
-			int i=0;
-			while (it.hasNext()) {
-				if(i>0) wrapper.and();
-				Map.Entry<String, Object> entry = it.next();
-				String key = entry.getKey();
-				if(entry.getValue().toString().contains("%")) {
-					wrapper.like(key, entry.getValue().toString().replace("%", ""));
-				} else {
-					wrapper.eq(key, entry.getValue());
-				}
-				i++;
+
+	public static <T> QueryWrapper<T> genLikeOrEq(QueryWrapper<T> wrapper, Map<String, Object> param) {
+		Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
+		if (it.hasNext()) {
+			Map.Entry<String, Object> entry = it.next();
+			String key = entry.getKey();
+			if (entry.getValue().toString().contains("%")) {
+				wrapper.like(key, entry.getValue().toString().replace("%", ""));
+			} else {
+				wrapper.eq(key, entry.getValue());
 			}
-			return wrapper;
 		}
-		
-		public static QueryWrapper allEq(QueryWrapper wrapper,Object bean) {
+		while (it.hasNext()) {
+			Map.Entry<String, Object> entry = it.next();
+			String key = entry.getKey();
+			if (entry.getValue().toString().contains("%")) {
+				wrapper.and(i -> i.like(key, entry.getValue().toString().replace("%", "")));
+			} else {
+				wrapper.and(i -> i.eq(key, entry.getValue()));
+			}
+		}
+		return wrapper;
+	}
+
+
+
+	public static QueryWrapper allEq(QueryWrapper wrapper,Object bean) {
 			  Map result = BeanUtil.beanToMap(bean, true, true);			 
 			return genEq(wrapper,result);
 		}
-	
-	
-		public static QueryWrapper genEq( QueryWrapper wrapper,Map param) {
-			Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
-			int i=0;
-			while (it.hasNext()) {
-				if(i>0) wrapper.and();
-				Map.Entry<String, Object> entry = it.next();
-				String key = entry.getKey();
-				wrapper.eq(key, entry.getValue());
-				i++;
+
+
+	public static <T> QueryWrapper<T> genEq(QueryWrapper<T> wrapper, Map<String, Object> param) {
+		Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
+		int i = 0;
+		while (it.hasNext()) {
+			if (i > 0) {
+				wrapper.and(j -> {
+				});
 			}
-			return wrapper;
+			Map.Entry<String, Object> entry = it.next();
+			String key = entry.getKey();
+			wrapper.eq(key, entry.getValue());
+			i++;
 		}
+		return wrapper;
+	}
+
 	
 	
 		public static QueryWrapper between(QueryWrapper wrapper,Map<String, Object> params) {
@@ -119,21 +143,23 @@ public class MPUtil {
 			}
 			return wrapper;
 		}
-	
-		public static QueryWrapper sort(QueryWrapper wrapper,Map<String, Object> params) {
-			String order = "";
-			if(params.get("order") != null && StringUtils.isNotBlank(params.get("order").toString())) {
-				order = params.get("order").toString();
-			}
-			if(params.get("sort") != null && StringUtils.isNotBlank(params.get("sort").toString())) {
-				if(order.equalsIgnoreCase("desc")) {
-					wrapper.orderDesc(Arrays.asList(params.get("sort")));
-				} else {
-					wrapper.orderAsc(Arrays.asList(params.get("sort")));
-				}
-			}
-			return wrapper;
+
+	public static <T> QueryWrapper<T> sort(QueryWrapper<T> wrapper, Map<String, Object> params) {
+		String order = "";
+		if (params.get("order") != null && StringUtils.isNotBlank(params.get("order").toString())) {
+			order = params.get("order").toString();
 		}
+		if (params.get("sort") != null && StringUtils.isNotBlank(params.get("sort").toString())) {
+			if (order.equalsIgnoreCase("desc")) {
+				wrapper.orderByDesc(params.get("sort").toString());
+			} else {
+				wrapper.orderByAsc(params.get("sort").toString());
+			}
+		}
+		return wrapper;
+	}
+
+
 	
 	
 	/**

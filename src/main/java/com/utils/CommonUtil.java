@@ -60,15 +60,15 @@ public class CommonUtil {
         CellType cellType = cell.getCellType();
         switch (cellType) {
             // 字符串类型
-            case CellType.STRING:
+            case STRING:
                 resultValue = StringUtils.isEmpty(cell.getStringCellValue()) ? "" : cell.getStringCellValue().trim();
                 break;
             // 布尔类型
-            case CellType.BOOLEAN:
+            case BOOLEAN:
                 resultValue = String.valueOf(cell.getBooleanCellValue());
                 break;
             // 数值类型
-            case Cell.CELL_TYPE_NUMERIC:
+            case NUMERIC:
                 resultValue = new DecimalFormat("#.######").format(cell.getNumericCellValue());
                 break;
             // 取空串
