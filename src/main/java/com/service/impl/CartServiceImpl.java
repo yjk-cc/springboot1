@@ -20,20 +20,24 @@ import com.entity.vo.CartVO;
 import com.entity.view.CartView;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 @Service("cartService")
 public class CartServiceImpl extends ServiceImpl<CartDao, CartEntity> implements CartService {
-	
-	
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<CartEntity> page = this.selectPage(
-                new Query<CartEntity>(params).getPage(),
-                new EntityWrapper<CartEntity>()
-        );
-        return new PageUtils(page);
-    }
+
+	@Override
+	public PageUtils queryPage(Map<String, Object> params) {
+		Page<CartEntity> page = new Page<>(Long.parseLong(params.get("page").toString()), Long.parseLong(params.get("limit").toString()));
+		EntityWrapper<CartEntity> wrapper = new EntityWrapper<>();
+		// 设置查询条件...
+		List<CartEntity> list = this.selectPage(page, wrapper).getRecords();
+		long totalCount = page.getTotal();
+		long pageSize = page.getSize();
+		long currPage = page.getCurrent();
+		return new PageUtils(list, totalCount, pageSize, currPage);
+	}
     
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<CartEntity> wrapper) {

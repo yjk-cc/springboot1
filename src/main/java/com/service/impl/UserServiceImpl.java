@@ -24,7 +24,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * 系统用户
  */
 @Service("userService")
-public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements UserService {
+public abstract class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements UserService {
 
 	@Override
 	public PageUtils queryPage(Map<String, Object> params) {

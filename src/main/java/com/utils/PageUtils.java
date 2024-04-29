@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.entity.AddressEntity;
 
 /**
  * 分页工具类
@@ -40,8 +41,9 @@ public class PageUtils implements Serializable {
 
 	/**
 	 * 分页
+	 * @param page
 	 */
-	public PageUtils(Page<?> page) {
+	public PageUtils(Page page) {
 		this.list = page.getRecords();
 		this.total = page.getTotal();
 		this.pageSize = Math.toIntExact(page.getSize());
@@ -57,7 +59,11 @@ public class PageUtils implements Serializable {
 		new PageUtils(page);
 	}
 
-	 
+	public PageUtils(List<AddressEntity> records, long total, long size, long current) {
+
+	}
+
+
 	public int getPageSize() {
 		return pageSize;
 	}

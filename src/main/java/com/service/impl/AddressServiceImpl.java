@@ -21,24 +21,31 @@ import com.entity.vo.AddressVO;
 import com.entity.view.AddressView;
 
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-@Service("addressService")
+
+
 public class AddressServiceImpl extends ServiceImpl<AddressDao, AddressEntity> implements AddressService {
-	
-	
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<AddressEntity> page = this.selectPage(
-                new Query<AddressEntity>(params).getPage(),
-                new EntityWrapper<AddressEntity>()
-        );
-        return new PageUtils(page);
-    }
+
+	@Override
+	public PageUtils queryPage(Map<String, Object> params) {
+		int pageNum = Integer.parseInt(params.getOrDefault("pageNum", 1).toString());
+		int pageSize = Integer.parseInt(params.getOrDefault("pageSize", 10).toString());
+
+		Page<AddressEntity> page = new Page<>(pageNum, pageSize);
+
+		QueryWrapper<AddressEntity> wrapper = new QueryWrapper<>();
+		// 可根据需要添加查询条件
+		// wrapper.eq("field", value);
+
+		// 执行分页查询
+		IPage<AddressEntity> resultPage = baseMapper.selectPage(page, wrapper);
+
+		return new PageUtils(resultPage.getRecords(), resultPage.getTotal(), resultPage.getSize(), resultPage.getCurrent());
+	}
     
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<AddressEntity> wrapper) {
