@@ -28,11 +28,9 @@ public abstract class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> i
 
 	@Override
 	public PageUtils queryPage(Map<String, Object> params) {
-		Page<UserEntity> page = this.selectPage(
-                new Query<UserEntity>(params).getPage(),
-                new EntityWrapper<UserEntity>()
-        );
-        return new PageUtils(page);
+		Page<UserEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, new QueryWrapper<UserEntity>());
+		return new PageUtils(page);
 	}
 
 	@Override

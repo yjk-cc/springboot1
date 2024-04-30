@@ -3,10 +3,8 @@ package com.dao;
 import com.entity.YonghuEntity;
 //import com.baomidou.mybatisplus.mapper.BaseMapper;
 import java.util.List;
-import java.util.Map;
 //import com.baomidou.mybatisplus.mapper.Wrapper;
 //import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 
@@ -31,7 +29,7 @@ public interface YonghuDao extends BaseMapper<YonghuEntity> {
 	
 	List<YonghuView> selectListView(@Param("ew") QueryWrapper<YonghuEntity> wrapper);
 
-	List<YonghuView> selectListView(Page<YonghuEntity> page, @Param("ew") QueryWrapper<YonghuEntity> wrapper);
+	List<YonghuEntity> selectListView(Page<YonghuEntity> page, @Param("ew") QueryWrapper<YonghuEntity> wrapper);
 	
 	YonghuView selectView(@Param("ew") QueryWrapper<YonghuEntity> wrapper);
 	

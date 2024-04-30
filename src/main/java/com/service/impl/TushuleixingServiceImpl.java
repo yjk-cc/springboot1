@@ -29,17 +29,15 @@ public class TushuleixingServiceImpl extends ServiceImpl<TushuleixingDao, Tushul
 	
 	
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<TushuleixingEntity> page = this.selectPage(
-                new Query<TushuleixingEntity>(params).getPage(),
-                new EntityWrapper<TushuleixingEntity>()
-        );
-        return new PageUtils(page);
+	public PageUtils queryPage(Map<String, Object> params) {
+		Page<TushuleixingEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, new QueryWrapper<TushuleixingEntity>());
+		return new PageUtils(page);
     }
     
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<TushuleixingEntity> wrapper) {
-		  Page<TushuleixingView> page =new Query<TushuleixingView>(params).getPage();
+		  Page<TushuleixingEntity> page =new Query<TushuleixingEntity>(params).getPage();
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;

@@ -25,8 +25,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 @Service("cartService")
-public class CartServiceImpl extends ServiceImpl<CartDao, CartEntity> implements CartService {
+public abstract class CartServiceImpl extends ServiceImpl<CartDao, CartEntity> implements CartService {
 
+
+/*
 	@Override
 	public PageUtils queryPage(Map<String, Object> params) {
 		Page<CartEntity> page = new Page<>(Long.parseLong(params.get("page").toString()), Long.parseLong(params.get("limit").toString()));
@@ -38,11 +40,12 @@ public class CartServiceImpl extends ServiceImpl<CartDao, CartEntity> implements
 		long currPage = page.getCurrent();
 		return new PageUtils(list, totalCount, pageSize, currPage);
 	}
-    
+  */
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<CartEntity> wrapper) {
-		  Page<CartView> page =new Query<CartView>(params).getPage();
-	        page.setRecords(baseMapper.selectListView(page,wrapper));
+		  Page<CartEntity> page =new Query<CartEntity>(params).getPage();
+	       // page.setRecords(baseMapper.selectListView(page,wrapper));
+		    page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
  	}

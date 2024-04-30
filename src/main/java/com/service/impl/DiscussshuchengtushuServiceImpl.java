@@ -24,20 +24,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 @Service("discussshuchengtushuService")
 public class DiscussshuchengtushuServiceImpl extends ServiceImpl<DiscussshuchengtushuDao, DiscussshuchengtushuEntity> implements DiscussshuchengtushuService {
-	
-	
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<DiscussshuchengtushuEntity> page = this.selectPage(
-                new Query<DiscussshuchengtushuEntity>(params).getPage(),
-                new EntityWrapper<DiscussshuchengtushuEntity>()
-        );
-        return new PageUtils(page);
+
+
+	@Override
+	public PageUtils queryPage(Map<String, Object> params) {
+		Page<DiscussshuchengtushuEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, new QueryWrapper<DiscussshuchengtushuEntity>());
+		return new PageUtils(page);
     }
-    
+
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<DiscussshuchengtushuEntity> wrapper) {
-		  Page<DiscussshuchengtushuView> page =new Query<DiscussshuchengtushuView>(params).getPage();
+		  Page<DiscussshuchengtushuEntity> page =new Query<DiscussshuchengtushuEntity>(params).getPage();
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;

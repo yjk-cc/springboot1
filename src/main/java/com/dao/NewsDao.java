@@ -3,11 +3,9 @@ package com.dao;
 import com.entity.NewsEntity;
 //import com.baomidou.mybatisplus.mapper.BaseMapper;
 import java.util.List;
-import java.util.Map;
 //import com.baomidou.mybatisplus.mapper.Wrapper;
 //import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import org.apache.ibatis.annotations.Param;
@@ -31,7 +29,7 @@ public interface NewsDao extends BaseMapper<NewsEntity> {
 	
 	List<NewsView> selectListView(@Param("ew") QueryWrapper<NewsEntity> wrapper);
 
-	List<NewsView> selectListView(Page<NewsEntity> page, @Param("ew") QueryWrapper<NewsEntity> wrapper);
+	List<NewsEntity> selectListView(Page<NewsEntity> page, @Param("ew") QueryWrapper<NewsEntity> wrapper);
 	
 	NewsView selectView(@Param("ew") QueryWrapper<NewsEntity> wrapper);
 	

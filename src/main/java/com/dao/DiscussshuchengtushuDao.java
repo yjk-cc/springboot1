@@ -3,11 +3,9 @@ package com.dao;
 import com.entity.DiscussshuchengtushuEntity;
 //import com.baomidou.mybatisplus.mapper.BaseMapper;
 import java.util.List;
-import java.util.Map;
 //import com.baomidou.mybatisplus.mapper.Wrapper;
 //import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -34,7 +32,7 @@ public interface DiscussshuchengtushuDao extends BaseMapper<Discussshuchengtushu
 	
 	List<DiscussshuchengtushuView> selectListView(@Param("ew") QueryWrapper<DiscussshuchengtushuEntity> wrapper);
 
-	List<DiscussshuchengtushuView> selectListView(Page<DiscussshuchengtushuEntity> page, @Param("ew") QueryWrapper<DiscussshuchengtushuEntity> wrapper);
+	List<DiscussshuchengtushuEntity> selectListView(Page<DiscussshuchengtushuEntity> page, @Param("ew") QueryWrapper<DiscussshuchengtushuEntity> wrapper);
 	
 	DiscussshuchengtushuView selectView(@Param("ew") QueryWrapper<DiscussshuchengtushuEntity> wrapper);
 	

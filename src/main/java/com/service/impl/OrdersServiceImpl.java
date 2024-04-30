@@ -25,19 +25,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 @Service("ordersService")
 public class OrdersServiceImpl extends ServiceImpl<OrdersDao, OrdersEntity> implements OrdersService {
 	
-	
+
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<OrdersEntity> page = this.selectPage(
-                new Query<OrdersEntity>(params).getPage(),
-                new EntityWrapper<OrdersEntity>()
-        );
-        return new PageUtils(page);
+	public PageUtils queryPage(Map<String, Object> params) {
+		Page<OrdersEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, new QueryWrapper<OrdersEntity>());
+		return new PageUtils(page);
     }
     
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<OrdersEntity> wrapper) {
-		  Page<OrdersView> page =new Query<OrdersView>(params).getPage();
+		  Page<OrdersEntity> page =new Query<OrdersEntity>(params).getPage();
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;

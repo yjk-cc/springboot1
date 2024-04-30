@@ -25,20 +25,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 @Service("newsService")
 public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements NewsService {
-	
-	
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<NewsEntity> page = this.selectPage(
-                new Query<NewsEntity>(params).getPage(),
-                new EntityWrapper<NewsEntity>()
-        );
-        return new PageUtils(page);
+
+
+	@Override
+	public PageUtils queryPage(Map<String, Object> params) {
+		Page<NewsEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, new QueryWrapper<NewsEntity>());
+		return new PageUtils(page);
     }
     
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<NewsEntity> wrapper) {
-		  Page<NewsView> page =new Query<NewsView>(params).getPage();
+		  Page<NewsEntity> page =new Query<NewsEntity>(params).getPage();
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;

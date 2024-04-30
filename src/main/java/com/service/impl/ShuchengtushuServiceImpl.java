@@ -27,17 +27,15 @@ public class ShuchengtushuServiceImpl extends ServiceImpl<ShuchengtushuDao, Shuc
 	
 	
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<ShuchengtushuEntity> page = this.selectPage(
-                new Query<ShuchengtushuEntity>(params).getPage(),
-                new EntityWrapper<ShuchengtushuEntity>()
-        );
-        return new PageUtils(page);
+	public PageUtils queryPage(Map<String, Object> params) {
+		Page<ShuchengtushuEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, new QueryWrapper<ShuchengtushuEntity>());
+		return new PageUtils(page);
     }
     
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<ShuchengtushuEntity> wrapper) {
-		  Page<ShuchengtushuView> page =new Query<ShuchengtushuView>(params).getPage();
+		  Page<ShuchengtushuEntity> page =new Query<ShuchengtushuEntity>(params).getPage();
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;

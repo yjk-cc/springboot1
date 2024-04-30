@@ -35,42 +35,32 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 @Service("yonghuService")
 public abstract class YonghuServiceImpl extends ServiceImpl<YonghuDao, YonghuEntity> implements YonghuService {
 
+
 	@Override
 	public PageUtils queryPage(Map<String, Object> params) {
-		int pageNum = Integer.parseInt(params.getOrDefault("pageNum", 1).toString());
-		int pageSize = Integer.parseInt(params.getOrDefault("pageSize", 10).toString());
-
-		Page<YonghuEntity> page = new Page<>(pageNum, pageSize);
-
-		QueryWrapper<YonghuEntity> queryWrapper = new QueryWrapper<>();
-		// 可根据需要添加查询条件
-		// queryWrapper.eq("field", value);
-
-		// 执行分页查询
-		IPage<YonghuEntity> resultPage = baseMapper.selectPage(page, queryWrapper);
-
-		return new PageUtils(resultPage.getRecords(), resultPage.getTotal(), resultPage.getSize(), resultPage.getCurrent());
+		Page<YonghuEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, new QueryWrapper<YonghuEntity>());
+		return new PageUtils(page);
 	}
 
-    
-    @Override
+	@Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<YonghuEntity> wrapper) {
-		  Page<YonghuView> page =new Query<YonghuView>(params).getPage();
-	        page.setRecords(baseMapper.selectListView(page,wrapper));
-	    	PageUtils pageUtil = new PageUtils(page);
-	    	return pageUtil;
- 	}
-    
-    @Override
-	public List<YonghuVO> selectListVO(QueryWrapper<YonghuEntity> wrapper) {
- 		return baseMapper.selectListVO(wrapper);
+		Page<YonghuEntity> page =new Query<YonghuEntity>(params).getPage();
+		page.setRecords(baseMapper.selectListView(page,wrapper));
+		PageUtils pageUtil = new PageUtils(page);
+		return pageUtil;
 	}
-	
+
+	@Override
+	public List<YonghuVO> selectListVO(QueryWrapper<YonghuEntity> wrapper) {
+		return baseMapper.selectListVO(wrapper);
+	}
+
 	@Override
 	public YonghuVO selectVO(QueryWrapper<YonghuEntity> wrapper) {
- 		return baseMapper.selectVO(wrapper);
+		return baseMapper.selectVO(wrapper);
 	}
-	
+
 	@Override
 	public List<YonghuView> selectListView(QueryWrapper<YonghuEntity> wrapper) {
 		return baseMapper.selectListView(wrapper);

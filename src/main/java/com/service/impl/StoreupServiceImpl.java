@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.List;
 
-//import com.baomidou.mybatisplus.mapper.Wrapper;
-//import com.baomidou.mybatisplus.mapper.EntityWrapper;
-//import com.baomidou.mybatisplus.plugins.Page;
-//import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
 import com.utils.PageUtils;
 import com.utils.Query;
 
@@ -24,20 +21,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 @Service("storeupService")
 public class StoreupServiceImpl extends ServiceImpl<StoreupDao, StoreupEntity> implements StoreupService {
-	
-	
+
+
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<StoreupEntity> page = this.selectPage(
-                new Query<StoreupEntity>(params).getPage(),
-                new EntityWrapper<StoreupEntity>()
-        );
-        return new PageUtils(page);
+	public PageUtils queryPage(Map<String, Object> params) {
+		Page<StoreupEntity> page = new Page<>(Long.parseLong(params.getOrDefault("page", "1").toString()), Long.parseLong(params.getOrDefault("limit", "10").toString()));
+		page = baseMapper.selectPage(page, null);
+		return new PageUtils(page);
     }
     
     @Override
 	public PageUtils queryPage(Map<String, Object> params, QueryWrapper<StoreupEntity> wrapper) {
-		  Page<StoreupView> page =new Query<StoreupView>(params).getPage();
+		  Page<StoreupEntity> page =new Query<StoreupEntity>(params).getPage();
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;

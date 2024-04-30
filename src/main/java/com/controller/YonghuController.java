@@ -210,34 +210,34 @@ public class YonghuController {
     /**
      * 后端保存
      */
-    @RequestMapping("/save")
-    public R save(@RequestBody YonghuEntity yonghu, HttpServletRequest request){
-    	yonghu.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(yonghu);
-    	YonghuEntity user = yonghuService.selectOne(new QueryWrapper<YonghuEntity>().eq("zhanghao", yonghu.getZhanghao()));
-		if(user!=null) {
+	@RequestMapping("/save")
+	public R save(@RequestBody YonghuEntity yonghu, HttpServletRequest request){
+		yonghu.setId(new Date().getTime() + Double.valueOf(Math.floor(Math.random()*1000)).longValue());
+		//ValidatorUtils.validateEntity(yonghu);
+		YonghuEntity user = yonghuService.selectOne(new QueryWrapper<YonghuEntity>().eq("zhanghao", yonghu.getZhanghao()));
+		if(user != null) {
 			return R.error("用户已存在");
 		}
 		yonghu.setId(new Date().getTime());
-        yonghuService.insert(yonghu);
-        return R.ok();
-    }
+		yonghuService.insert(yonghu);
+		return R.ok();
+	}
     
     /**
      * 前端保存
      */
-    @RequestMapping("/add")
-    public R add(@RequestBody YonghuEntity yonghu, HttpServletRequest request){
-    	yonghu.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(yonghu);
-    	YonghuEntity user = yonghuService.selectOne(new QueryWrapper<YonghuEntity>().eq("zhanghao", yonghu.getZhanghao()));
-		if(user!=null) {
+	@RequestMapping("/add")
+	public R add(@RequestBody YonghuEntity yonghu, HttpServletRequest request){
+		yonghu.setId(new Date().getTime() + Double.valueOf(Math.floor(Math.random()*1000)).longValue());
+		//ValidatorUtils.validateEntity(yonghu);
+		YonghuEntity user = yonghuService.selectOne(new QueryWrapper<YonghuEntity>().eq("zhanghao", yonghu.getZhanghao()));
+		if(user != null) {
 			return R.error("用户已存在");
 		}
 		yonghu.setId(new Date().getTime());
-        yonghuService.insert(yonghu);
-        return R.ok();
-    }
+		yonghuService.insert(yonghu);
+		return R.ok();
+	}
 
     /**
      * 修改

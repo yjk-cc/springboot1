@@ -8,12 +8,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
-import java.util.Map;
-
 
 
 //import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 
@@ -38,7 +35,7 @@ public interface AddressDao extends BaseMapper<AddressEntity> {
 	List<AddressView> selectListView(@Param("ew") QueryWrapper<AddressEntity> wrapper);
 
 	//List<AddressView> selectListView(Pagination page, @Param("ew") QueryWrapper<AddressEntity> wrapper);
-	List<AddressView> selectListView(Page<AddressEntity> page, @Param("ew") QueryWrapper<AddressEntity> wrapper);
+	List<AddressEntity> selectListView(Page<AddressEntity> page, @Param("ew") QueryWrapper<AddressEntity> wrapper);
 	AddressView selectView(@Param("ew") QueryWrapper<AddressEntity> wrapper);
 	
 

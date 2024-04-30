@@ -7,7 +7,6 @@ import java.util.Map;
 //import com.baomidou.mybatisplus.mapper.Wrapper;
 //import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 
@@ -32,7 +31,7 @@ public interface OrdersDao extends BaseMapper<OrdersEntity> {
 	
 	List<OrdersView> selectListView(@Param("ew") QueryWrapper<OrdersEntity> wrapper);
 
-	List<OrdersView> selectListView(Page<OrdersEntity> page, @Param("ew") QueryWrapper<OrdersEntity> wrapper);
+	List<OrdersEntity> selectListView(Page<OrdersEntity> page, @Param("ew") QueryWrapper<OrdersEntity> wrapper);
 	
 	OrdersView selectView(@Param("ew") QueryWrapper<OrdersEntity> wrapper);
 	

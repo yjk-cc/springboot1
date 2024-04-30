@@ -4,7 +4,7 @@ import com.entity.CartEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 //import com.baomidou.mybatisplus.mapper.BaseMapper;
 import java.util.List;
-import java.util.Map;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 //import com.baomidou.mybatisplus.mapper.Wrapper;
 
@@ -15,7 +15,6 @@ import com.entity.vo.CartVO;
 import com.entity.view.CartView;
 
 //import com.baomidou.mybatisplus.plugins.pagination.Pagination;  改成了下面这两句
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 /**
  * 购物车表
@@ -34,7 +33,7 @@ public interface CartDao extends BaseMapper<CartEntity> {
 
 //	List<CartView> selectListView(Pagination page, @Param("ew") QueryWrapper<CartEntity> wrapper);  改成了下面这局
 
-	List<CartView> selectListView(Page<CartEntity> page, @Param("ew") QueryWrapper<CartEntity> wrapper);
+	List<CartEntity> selectListView(Page<CartEntity> page, @Param("ew") QueryWrapper<CartEntity> wrapper);
 
 	CartView selectView(@Param("ew") QueryWrapper<CartEntity> wrapper);
 	
